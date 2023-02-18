@@ -22,13 +22,91 @@ When building a NoSQL database, it is important to start by considering the pote
 **Let's now pretend that that the database we want to build supports a user-interface search and selection of movies to watch (e.g. like Netflix).**
 ### Possible Queries
 1) Show the movies that are popular (have a good rating) within a period of time (e.g. the last 2 months) – this may constitute well the initial "suggestions" screen  to the user
-2) Search for the movie(s) that contain some keywords in the title
-3) To search movies based on category (genre) and receive them based on some classification (year or grade point average)
-4) To see the detailed information about a movie (category, average rating, top-k tags)
-5) To see the top-n movies related to some tag
+2) Show the he movie(s) that contain some keywords in the title
+3) Show the movies based on category (genre) and receive them based on some classification (year or average rating)
+4) Show the detailed information about a movie (category, average rating, top-k tags)
+5) Show the top-n movies related to some tag
 
 | Type | Diagram |
 | --- | --- |
 | Entity Relationship  | <img src="https://github.com/gkontogiannhs/Big-Data-Cassandra-Python/blob/main/snaps/ER.png" width="500" height="400"> |
 | Application Workflow | <img src="https://github.com/gkontogiannhs/Big-Data-Cassandra-Python/blob/main/snaps/AW.png" width="500" height="400">  |
 | Chebotko | <img src="https://github.com/gkontogiannhs/Big-Data-Cassandra-Python/blob/main/snaps/chebotko.png" width="500" height="400"> |
+
+## DataBase Implementation
+The structure of the database will be created by shell statements while the data insertion is done via python scripts (see cassandra_insert.ipynb)
+### DDL Statements
+```
+# Create an empty Cassandra keyspace
+CREATE KEYSPACE <bigdata>
+```
+
+```
+# 1st Query DDL
+CREATE TABLE big_data.popular_movies_by_date (
+    year int,
+    month int,
+    day int,
+    rating float,
+    movieid int,
+    genres text,
+    title text,
+    PRIMARY KEY (year, month, day, rating, movieid)
+) WITH CLUSTERING ORDER BY (month ASC, day ASC, rating DESC, movieid ASC)
+```
+
+```
+# 2nd Query DDL
+CREATE TABLE big_data.movies_by_keyword (
+    keyword text,
+    rating float,
+    movieid int,
+    genres text,
+    title text,
+    PRIMARY KEY (keyword, rating, movieid)
+) WITH CLUSTERING ORDER BY (rating DESC, movieid ASC)
+```
+
+```
+# 3rd Query DDL
+CREATE TABLE big_data.movies_by_genre (
+    genre text,
+    release_date text,
+    avg_rating float,
+    movieid int,
+    title text,
+    PRIMARY KEY (genre, release_date, avg_rating, movieid)
+) WITH CLUSTERING ORDER BY (release_date ASC, avg_rating DESC, movieid ASC)
+```
+
+```
+# 4th Query DDL
+CREATE TABLE big_data.movie_info_by_title (
+    title text,
+    tag_count int,
+    avg_rating float,
+    movieid int,
+    tag text,
+    genres text static,
+    PRIMARY KEY (title, tag_count, avg_rating, movieid, tag)
+) WITH CLUSTERING ORDER BY (tag_count DESC, avg_rating DESC, movieid ASC, tag ASC
+
+```
+
+```
+# 5th Query DDL
+CREATE TABLE big_data.movies_by_tag (
+    tag text,
+    avg_rating float,
+    movieid int,
+    genres text,
+    title text,
+    PRIMARY KEY (tag, avg_rating, movieid)
+) WITH CLUSTERING ORDER BY (avg_rating DESC, movieid ASC)
+```
+
+| DDL | Result |
+| --- | --- |
+| Entity Relationship  | <img src="https://github.com/gkontogiannhs/Big-Data-Cassandra-Python/blob/main/snaps/.png" width="500" height="400"> |
+| Application Workflow | <img src="https://github.com/gkontogiannhs/Big-Data-Cassandra-Python/blob/main/snaps/.png" width="500" height="400">  |
+| Chebotko | <img src="https://github.com/gkontogiannhs/Big-Data-Cassandra-Python/blob/main/snaps/.png" width="500" height="400"> |
