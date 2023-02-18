@@ -105,3 +105,12 @@ CREATE TABLE big_data.movies_by_tag (
     PRIMARY KEY (tag, avg_rating, movieid)
 ) WITH CLUSTERING ORDER BY (avg_rating DESC, movieid ASC)
 ```
+
+## Queries to implement: 
+1. Show the first 30 movies with the highest average rating between 01/01/2015 and 15/01/2015 
+2. Show movies containing the word “star” 
+3. Show the movies from "adventure" category sorted by year production 
+4. Show all the details about Jumanji movie (category, average rating, top-5 tags) 
+5. Show the first 20 movies with the highest average rating for the tag "comedy".
+
+  In [cassandra_retrieve.ipynb](https://github.com/gkontogiannhs/Big-Data-Cassandra-Python/blob/main/cassandra_retrieve.ipynb) jupyter file, the client side is simulated by retrieving the results for the above queries via the Python - Cassandra API. Execution time per consistency level (ALL, QUORUM,  ONE) was also recorded as an experiment, for both READ and WRITE.
