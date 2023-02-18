@@ -26,3 +26,9 @@ When building a NoSQL database, it is important to start by considering the pote
 3) To search movies based on category (genre) and receive them based on some classification (year or grade point average)
 4) To see the detailed information about a movie (category, average rating, top-k tags)
 5) To see the top-n movies related to some tag
+
+| Type | Diagram |
+| --- | --- |
+| Entity Relationship  | <img src="https://github.com/gkontogiannhs/Big-Data-Cassandra-Python/blob/main/snaps/ER.png" width="500" height="400"> |
+| Application Workflow | <img src="https://github.com/gkontogiannhs/Big-Data-Cassandra-Python/blob/main/snaps/AW.png" width="500" height="400">  |
+| Chebotko | <img src="https://github.com/gkontogiannhs/Big-Data-Cassandra-Python/blob/main/snaps/chebotko.png" width="500" height="400"> |
