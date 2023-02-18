@@ -34,11 +34,12 @@ When building a NoSQL database, it is important to start by considering the pote
 | Chebotko | <img src="https://github.com/gkontogiannhs/Big-Data-Cassandra-Python/blob/main/snaps/chebotko.png" width="500" height="400"> |
 
 ## DataBase Implementation
-The structure of the database will be created by shell statements while the data insertion is done via python scripts (see cassandra_insert.ipynb)
+The structure of the database will be created by shell statements. The data insertion is done via python scripts [cassandra_insert.ipynb](https://github.com/gkontogiannhs/Big-Data-Cassandra-Python/blob/main/cassandra_insert.ipynb) using dsbulk, after data are modelled (denormalization etc.) based on the queries requirements.
+
 ### DDL Statements
 ```
 # Create an empty Cassandra keyspace
-CREATE KEYSPACE <bigdata>
+CREATE KEYSPACE <big_data>
 ```
 
 ```
@@ -104,9 +105,3 @@ CREATE TABLE big_data.movies_by_tag (
     PRIMARY KEY (tag, avg_rating, movieid)
 ) WITH CLUSTERING ORDER BY (avg_rating DESC, movieid ASC)
 ```
-
-| DDL | Result |
-| --- | --- |
-| Entity Relationship  | <img src="https://github.com/gkontogiannhs/Big-Data-Cassandra-Python/blob/main/snaps/.png" width="500" height="400"> |
-| Application Workflow | <img src="https://github.com/gkontogiannhs/Big-Data-Cassandra-Python/blob/main/snaps/.png" width="500" height="400">  |
-| Chebotko | <img src="https://github.com/gkontogiannhs/Big-Data-Cassandra-Python/blob/main/snaps/.png" width="500" height="400"> |
